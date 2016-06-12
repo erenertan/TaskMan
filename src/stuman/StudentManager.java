@@ -143,8 +143,4 @@ public class StudentManager {
 
         schools = (ArrayList<School>) o;
     }
-
-    public StudentManager test(Runnable r) {
-        return this;
-    }
 }
