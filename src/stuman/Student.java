@@ -33,6 +33,10 @@ public class Student implements Comparable<Student> {
         this.school = school;
     }
 
+    public String getFullName() {
+        return name + " " + surname;
+    }
+
     public Date getBirthDate() {
         return birthDate;
     }

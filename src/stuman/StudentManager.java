@@ -2,6 +2,7 @@ package stuman;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * Project: TaskMan
@@ -80,6 +81,32 @@ public class StudentManager {
         }
 
         return list;
+    }
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    /**
+     * Filters students by regular expressions / patterns
+     * Example:
+     * students: Tarık İnce, Halil Ertan, Ali Metin
+     * pattern: \w{3}\s\w{5} will return Ali Metin
+     * pattern: ^[TH] will return Tarık İnce, Halil Ertan
+     *
+     * @param regex Pattern to filter students
+     * @return Array of students
+     */
+    public ArrayList<Student> getStudentByFullNameRegex(String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        ArrayList<Student> students = new ArrayList<>();
+        for (Student student : students) {
+            if (pattern.matcher(student.getFullName()).matches()) {
+                students.add(student);
+            }
+        }
+
+        return students;
     }
 
     public void saveToFile(Object o, String path) {
