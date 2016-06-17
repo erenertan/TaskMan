@@ -14,25 +14,24 @@ public class StudentManager {
     public static final String FILE_NAME_STUDENTS = "students.d";
     public static final String FILE_NAME_SCHOOLS = "schools.d";
 
-    private ArrayList<Student> students;
-    private ArrayList<School> schools;
+    private static ArrayList<Student> students;
+    private static ArrayList<School> schools;
 
-    public StudentManager() {
+    public static void initialize() {
         students = new ArrayList<>();
         schools = new ArrayList<>();
-
         loadData();
     }
 
-    public ArrayList<Student> getStudents() {
+    public static ArrayList<Student> getStudents() {
         return students;
     }
 
-    public ArrayList<School> getSchools() {
+    public static ArrayList<School> getSchools() {
         return schools;
     }
 
-    public Student getStudentById(int id) {
+    public static Student getStudentById(int id) {
         for (Student stu : students) {
             if (stu.getId() == id) {
                 return stu;
@@ -42,7 +41,7 @@ public class StudentManager {
         return null;
     }
 
-    public Student getStudentByFullName(String name, String surname) {
+    public static Student getStudentByFullName(String name, String surname) {
         for (Student stu : students) {
             if (stu.getName().equals(name) && stu.getSurname().equals(surname)) {
                 return stu;
@@ -52,7 +51,7 @@ public class StudentManager {
         return null;
     }
 
-    public Student getStudentByEmail(String email) {
+    public static Student getStudentByEmail(String email) {
         for (Student stu : students) {
             if (stu.getEmail().equals(email)) {
                 return stu;
@@ -62,7 +61,7 @@ public class StudentManager {
         return null;
     }
 
-    public Student getStudentByPhone(String phoneNumber) {
+    public static Student getStudentByPhone(String phoneNumber) {
         for (Student stu : students) {
             if (stu.getPhone().equals(phoneNumber)) {
                 return stu;
@@ -72,7 +71,7 @@ public class StudentManager {
         return null;
     }
 
-    public ArrayList<Student> getStudentsByMission(StudentMission mis) {
+    public static ArrayList<Student> getStudentsByMission(StudentMission mis) {
         ArrayList<Student> list = new ArrayList<>();
         for (Student stu : students) {
             if (stu.getMission().equals(mis)) {
@@ -83,7 +82,7 @@ public class StudentManager {
         return list;
     }
 
-    public void addStudent(Student student) {
+    public static void addStudent(Student student) {
         students.add(student);
     }
 
@@ -97,7 +96,7 @@ public class StudentManager {
      * @param regex Pattern to filter students
      * @return Array of students
      */
-    public ArrayList<Student> getStudentByFullNameRegex(String regex) {
+    public static ArrayList<Student> getStudentByFullNameRegex(String regex) {
         Pattern pattern = Pattern.compile(regex);
         ArrayList<Student> students = new ArrayList<>();
         for (Student student : students) {
@@ -109,7 +108,7 @@ public class StudentManager {
         return students;
     }
 
-    public void saveToFile(Object o, String path) {
+    public static void saveToFile(Object o, String path) {
         if (o == null) {
             return;
         }
@@ -125,12 +124,12 @@ public class StudentManager {
         }
     }
 
-    public void saveToFile() {
+    public static void saveToFile() {
         saveToFile(schools, FILE_NAME_SCHOOLS);
         saveToFile(students, FILE_NAME_STUDENTS);
     }
 
-    public Object loadFromFile(String path) {
+    public static Object loadFromFile(String path) {
         File file = new File(path);
         Object retVal = null;
         if (file.exists()) {
@@ -148,12 +147,12 @@ public class StudentManager {
         return retVal;
     }
 
-    public void loadData() {
+    public static void loadData() {
         loadSchools();
         loadStudents();
     }
 
-    public void loadStudents() {
+    public static void loadStudents() {
         Object o = loadFromFile(FILE_NAME_STUDENTS);
         if (o == null) {
             return;
@@ -162,7 +161,7 @@ public class StudentManager {
         students = (ArrayList<Student>) o;
     }
 
-    public void loadSchools() {
+    public static void loadSchools() {
         Object o = loadFromFile(FILE_NAME_SCHOOLS);
         if (o == null) {
             return;
