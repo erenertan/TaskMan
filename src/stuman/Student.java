@@ -9,11 +9,12 @@ import java.util.Date;
  * Author: incetarik
  */
 public class Student implements Comparable<Student> {
-    private String name, surname, phone, email;
+    private String name, surname, phone, email, note;
     private int id;
     private School school;
     private StudentMission mission;
     private Date birthDate;
+    private byte[] imageArray;
 
     public Student() {
     }
@@ -31,6 +32,14 @@ public class Student implements Comparable<Student> {
     public Student(String name, String surname, int id, School school) {
         this(name, surname, id);
         this.school = school;
+    }
+
+    public byte[] getImageArray() {
+        return imageArray;
+    }
+
+    public void setImageArray(byte[] imageArray) {
+        this.imageArray = imageArray;
     }
 
     public String getFullName() {
@@ -99,6 +108,14 @@ public class Student implements Comparable<Student> {
 
     public void setSchool(School school) {
         this.school = school;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Override

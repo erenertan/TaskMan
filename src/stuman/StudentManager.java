@@ -87,6 +87,39 @@ public class StudentManager {
     }
 
     /**
+     * Reads a file bytes from filePath and sets image byte array into student.
+     * If file is not exists, returns.
+     * Note: File size cannot be bigger than {@link Integer#MAX_VALUE}.
+     *
+     * @param student  Student to install image from filePath
+     * @param filePath Path of the file to read
+     */
+    public static void installImage(Student student, String filePath) {
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            return;
+        }
+
+        try {
+            if (file.length() > Integer.MAX_VALUE) {
+                throw new IOException("File is too big");
+            }
+
+            int currentByte, index = 0;
+            byte[] bytes = new byte[(int) file.length()];
+            FileInputStream fis = new FileInputStream(file);
+            while ((currentByte = fis.read()) != -1) {
+                bytes[index++] = (byte) currentByte;
+            }
+            student.setImageArray(bytes);
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Filters students by regular expressions / patterns
      * Example:
      * students: Tarık İnce, Halil Ertan, Ali Metin
