@@ -1,5 +1,7 @@
 package stuman;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -84,6 +86,81 @@ public class StudentManager {
 
     public static void addStudent(Student student) {
         students.add(student);
+    }
+
+    /**
+     * Reads a file bytes from filePath and sets image byte array into student.
+     * If file is not exists, returns.
+     * Note: File size cannot be bigger than {@link Integer#MAX_VALUE}.
+     *
+     * @param student  Student to install image from filePath
+     * @param filePath Path of the file to read
+     */
+    public static void installImage(Student student, String filePath) {
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            return;
+        }
+
+        try {
+            if (file.length() > Integer.MAX_VALUE) {
+                throw new IOException("File is too big");
+            }
+
+            int currentByte, index = 0;
+            byte[] bytes = new byte[(int) file.length()];
+            FileInputStream fis = new FileInputStream(file);
+            while ((currentByte = fis.read()) != -1) {
+                bytes[index++] = (byte) currentByte;
+            }
+            student.setImageArray(bytes);
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates serialized files of the elements held by.
+     * TODO: MAY BE COMPRESSED INTO ONE ZIP FILE
+     *
+     * @param directoryPath Path of the directory to save
+     */
+    public static void makeBackup(String directoryPath) {
+        File dir = new File(directoryPath);
+        if (dir.exists() && dir.isDirectory()) {
+            // Add for each data type as,
+            // saveToFile(get[CLASS], String.join(File.pathSeparator, directoryPath, [FILE_NAME_OF_CLASS]));
+            saveToFile(getSchools(), String.join(File.pathSeparator, directoryPath, FILE_NAME_SCHOOLS));
+            saveToFile(getStudents(), String.join(File.pathSeparator, directoryPath, FILE_NAME_STUDENTS));
+        }
+    }
+
+    /**
+     * Loads backup from given path.
+     * If path is a valid zip file, decompresses and loads newer ones.
+     * If path is a valid directory path, reads whole directory and loads newer ones.
+     * <p>
+     * Items read from the files will be compared by their data, if an item is already exists then
+     * item will be merged. Otherwise will be added to internal / local list.
+     *
+     * @param path An absolute path of a directory or a file
+     */
+    public static void loadBackup(String path) {
+        File file = new File(path);
+
+        if (!file.exists()) {
+            return;
+        }
+
+        if (file.isDirectory()) {
+
+        } else if (file.isFile()) {
+
+        }
+
+        throw new NotImplementedException();
     }
 
     /**
