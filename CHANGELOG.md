@@ -8,6 +8,18 @@ able to easily manage, group, search, assign students you have.
 - Account system
 - Creating compressed zip files periodically.
 
+# 1.1.3 - 2016-07-26
+## Added
+- **Application** class to put application-wide static objects.
+- First form of the application
+- forms.Application menu
+- `MigLayout` jar for frame layouts
+- `Timer` class to schedule any action
+
+## Changed
+- Since `Application` class is created, everything (including `main`)
+  are in this class. Thus, `Main` class is non existent.
+
 # [1.1.2] - 2016-07-01
 ## Added
 - `Notes` and `image` property to `Student` class.
